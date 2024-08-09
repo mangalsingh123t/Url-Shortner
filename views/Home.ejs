@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>URL Shortener</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #f4f4f4;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .container {
+      background-color: #ffffff;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      padding: 20px 40px;
+      text-align: center;
+      width: 90%;
+      max-width: 400px;
+    }
+
+    h1 {
+      font-size: 24px;
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+
+    label {
+      font-size: 16px;
+      color: #555;
+      margin-bottom: 10px;
+      text-align: left;
+    }
+
+    input[type="text"] {
+      padding: 10px;
+      font-size: 14px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      margin-bottom: 20px;
+      width: 100%;
+    }
+
+    button {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      padding: 10px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    p {
+      font-size: 16px;
+      color: #333;
+      margin-top: 20px;
+    }
+
+    a {
+      color: #4CAF50;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    /* Popup Styling */
+    .popup {
+      visibility: hidden;
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: #4CAF50;
+      color: white;
+      padding: 15px 20px;
+      border-radius: 5px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      z-index: 1000;
+    }
+
+    .popup.show {
+      visibility: visible;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1>URL Shortener</h1>
+    <% if (id) { %>
+      <p>Generated URL: <a href="http://localhost:9090/url/<%= id %>">http://localhost:9090/url/<%= id %></a></p>
+      <div id="popup" class="popup">Short URL Generated Successfully!</div>
+      <script>
+        document.getElementById('popup').classList.add('show');
+        setTimeout(() => {
+          document.getElementById('popup').classList.remove('show');
+        }, 3000); // Hide after 3 seconds
+      </script>
+      <% } %>
+        <form method="POST" action="/url">
+          <label for="urlInput">Enter Your Original URL</label>
+          <input type="text" id="urlInput" name="redirectUrl" placeholder="https://example.com">
+          <button type="submit">Generate</button>
+        </form>
+  </div>
+</body>
+
+</html>
