@@ -109,7 +109,7 @@
 <body>
   <div class="container">
     <h1>URL Shortener</h1>
-    <% if (id) { %>
+    <% if (locals.id) { %>
       <p>Generated URL: <a href="http://localhost:9090/url/<%= id %>">http://localhost:9090/url/<%= id %></a></p>
       <div id="popup" class="popup">Short URL Generated Successfully!</div>
       <script>
