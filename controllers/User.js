@@ -1,15 +1,17 @@
 
 const User = require('../models/User')
-const { v4 : uuidv4 } = require('uuid');
-const {setUser} = require('../utils/auth')
+const { setUser } = require('../utils/auth')
 async function userSignUp(req, res) {
   console.log(req.body)
   const { name, email, password } = req.body
 
-  await User.create({
+  const user = await User.create({
     name, email, password
   })
-  return res.redirect('/')
+  if (!user) {
+    res.render("/")
+  }
+  return res.redirect('/login')
 }
 
 async function userLogin(req, res) {
@@ -21,11 +23,10 @@ async function userLogin(req, res) {
       error: "Invalid userName or Password"
     })
   }
- const sessionId =uuidv4()
- setUser(sessionId,user)
- res.cookie('uid',sessionId)
+  const token = setUser(user)
+  res.cookie('token', token)
   return res.redirect('/')
-} 
+}
 
 module.exports = {
   userSignUp, userLogin
